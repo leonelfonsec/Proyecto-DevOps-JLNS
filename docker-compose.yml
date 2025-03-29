@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  blacklist_service:
+    build: ./blacklist_service
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/blacklist_db
+      - JWT_SECRET_KEY=supersecret
+    depends_on:
+      - db
+    env_file:
+      - .env
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: blacklist_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5433:5432"
