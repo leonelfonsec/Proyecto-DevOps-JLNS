@@ -1,8 +1,5 @@
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-import uuid
-
-db = SQLAlchemy()
+from .extensions import db  # ✅ Importa solo db
 
 class BlacklistEntry(db.Model):
     __tablename__ = 'blacklist'
