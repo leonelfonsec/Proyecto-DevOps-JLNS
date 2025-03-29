@@ -10,8 +10,7 @@ services:
       - JWT_SECRET_KEY=supersecret
     depends_on:
       - db
-    env_file:
-      - .env
+    
   db:
     image: postgres:13
     environment:
