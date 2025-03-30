@@ -1,13 +1,26 @@
-from flask import request, jsonify
+from flask import request, jsonify, abort
 from flask_restful import Resource
-from flask_jwt_extended import jwt_required
+from functools import wraps
 from .models import BlacklistEntry, db
 from .schemas import BlacklistSchema
 
 schema = BlacklistSchema()
 
+# 🔐 TOKEN FIJO (válido y predefinido como pide la entrega)
+STATIC_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTcwODk5NjAwMCwiZXhwIjoxNzM5NTMyMDAwfQ.vbJPj04SRQfQBoDh-Z_T70F9R50wF1BuFbUKvUFn1Hk"
+
+# ✅ Decorador para validar el token sin JWT dinámico
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = request.headers.get("Authorization", "")
+        if token != f"Bearer {STATIC_TOKEN}":
+            abort(401)
+        return f(*args, **kwargs)
+    return decorated
+
 class BlacklistResource(Resource):
-    @jwt_required()
+    @token_required
     def post(self):
         data = request.get_json()
         errors = schema.validate(data)
@@ -25,7 +38,7 @@ class BlacklistResource(Resource):
         return {"message": "Email added to blacklist"}, 201
 
 class BlacklistCheckResource(Resource):
-    @jwt_required()
+    @token_required
     def get(self, email):
         entry = BlacklistEntry.query.filter_by(email=email).first()
         if entry:
