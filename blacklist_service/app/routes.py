@@ -6,10 +6,8 @@ from .schemas import BlacklistSchema
 
 schema = BlacklistSchema()
 
-# 🔐 TOKEN FIJO (válido y predefinido como pide la entrega)
 STATIC_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTcwODk5NjAwMCwiZXhwIjoxNzM5NTMyMDAwfQ.vbJPj04SRQfQBoDh-Z_T70F9R50wF1BuFbUKvUFn1Hk"
 
-# ✅ Decorador para validar el token sin JWT dinámico
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
