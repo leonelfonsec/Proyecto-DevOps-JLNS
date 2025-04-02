@@ -20,20 +20,30 @@ def token_required(f):
 class BlacklistResource(Resource):
     @token_required
     def post(self):
+        print("✅ POST /blacklists endpoint alcanzado")
         data = request.get_json()
+        print(f"📩 Payload recibido: {data}")
         errors = schema.validate(data)
         if errors:
+            print(f"⚠️ Errores de validación: {errors}")
             return {"errors": errors}, 400
-
-        new_entry = BlacklistEntry(
-            email=data['email'],
-            app_uuid=data['app_uuid'],
-            blocked_reason=data.get('blocked_reason'),
-            ip_address=request.remote_addr
-        )
-        db.session.add(new_entry)
-        db.session.commit()
-        return {"message": "Email added to blacklist"}, 201
+        try:
+            new_entry = BlacklistEntry(
+                email=data['email'],
+                app_uuid=data['app_uuid'],
+                blocked_reason=data.get('blocked_reason'),
+                ip_address=request.remote_addr
+            )
+            print(f"🆕 Instancia creada: {new_entry}")
+            db.session.add(new_entry)
+            print("📥 Registro agregado a la sesión")
+            db.session.commit()
+            print("💾 Commit exitoso a la base de datos")
+            return {"message": "Email added to blacklist"}, 201
+        except Exception as e:
+            print(f"❌ Error al agregar a la base de datos: {e}")
+            db.session.rollback()
+            return {"error": "Failed to add email to blacklist"}, 500
 
 class BlacklistCheckResource(Resource):
     @token_required
