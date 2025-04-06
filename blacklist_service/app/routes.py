@@ -42,7 +42,13 @@ class BlacklistCheckResource(Resource):
         if entry:
             return {"blacklisted": True, "reason": entry.blocked_reason}, 200
         return {"blacklisted": False}, 200
+    
+class HealthCheckResource(Resource):
+    def get(self):
+        return {"status": "ok"}, 200
+
 
 def register_routes(api):
     api.add_resource(BlacklistResource, '/blacklists')
     api.add_resource(BlacklistCheckResource, '/blacklists/<string:email>')
+    api.add_resource(HealthCheckResource, '/health')
