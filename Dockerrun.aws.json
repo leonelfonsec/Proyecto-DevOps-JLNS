@@ -1,21 +1,22 @@
 {
-    "AWSEBDockerrunVersion": 2,
-    "containerDefinitions": [
-      {
-        "name": "blacklist_service",
-        "image": "<tu-imagen-docker>",
-        "essential": true,
-        "memory": 512,
-        "portMappings": [
-          {
-            "containerPort": 5000,
-            "hostPort": 5000
-          }
-        ],
-        "environment": [
-          { "name": "DATABASE_URL", "value": "<url-aws-rds>" },
-          { "name": "JWT_SECRET_KEY", "value": "<secret>" }
-        ]
-      }
-    ]
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "970659526887.dkr.ecr.us-east-2.amazonaws.com/blacklist-service:latest",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "5000"
+    }
+  ],
+  "Environment": [
+    {
+      "Name": "DATABASE_URL",
+      "Value": "postgresql://postgres:password@database-1.cr2u068mwzvv.us-east-2.rds.amazonaws.com:5432/blacklist_db"
+    },
+    {
+      "Name": "JWT_SECRET_KEY",
+      "Value": "supersecret"
+    }
+  ]
 }
