@@ -18,4 +18,4 @@ COPY . .
 # Define variable de entorno para evitar problemas con Python buffer
 ENV PYTHONUNBUFFERED=1
 
-CMD ["sh", "-c", "echo 'Starting with DATABASE_URL=$DATABASE_URL'; python application.py"]
+CMD ["sh", "-c", "echo 'Starting with DATABASE_URL=$DATABASE_URL'; python run.py"]
