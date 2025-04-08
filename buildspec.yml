@@ -8,8 +8,14 @@ phases:
   pre_build:
     commands:
       - echo "Instalando dependencias..."
-      - pip install -r requirements.txt
+      - pip install --upgrade pip
+      - pip install -r requirements.txt --verbose
+
+  build:
+    commands:
+      - echo "✅ Build completado. Preparando artefactos para despliegue..."
 
 artifacts:
+  base-directory: 'blacklist_service'
   files:
     - '**/*'
