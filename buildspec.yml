@@ -8,6 +8,7 @@ phases:
   pre_build:
     commands:
       - echo "Instalando dependencias..."
+      - cd blacklist_service
       - pip install --upgrade pip
       - pip install -r requirements.txt --verbose
 
