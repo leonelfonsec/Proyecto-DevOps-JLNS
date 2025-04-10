@@ -15,8 +15,10 @@ phases:
   build:
     commands:
       - echo "✅ Build completado. Preparando artefactos para despliegue..."
+      - pytest tests/ > result.log
 
 artifacts:
   base-directory: 'blacklist_service'
   files:
     - '**/*'
+    - ../result.log
