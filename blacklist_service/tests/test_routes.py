@@ -18,9 +18,12 @@ def client():
 
     app = create_app(TestConfig)
 
-    with patch("app.models.BlacklistEntry") as MockEntry:
-        with app.test_client() as client:
-            yield client
+    with app.app_context():
+        from app.models import db
+        db.create_all()
+
+    with app.test_client() as client:
+        yield client
 
 def auth_header():
     return {"Authorization": f"Bearer {STATIC_TOKEN}"}
@@ -57,22 +60,31 @@ def test_post_blacklist_invalid_payload(mock_session, client):
     assert response.status_code == 400
     assert "errors" in response.get_json()
 
-@patch("app.routes.BlacklistEntry.query")
-def test_check_blacklisted_email(mock_query, client):
-    mock_entry = MagicMock()
-    mock_entry.blocked_reason = fake.sentence(nb_words=2)
-    mock_query.filter_by.return_value.first.return_value = mock_entry
+def test_check_blacklisted_email(client):
+    from app.models import db, BlacklistEntry
 
     email = fake.email()
+    reason = fake.sentence(nb_words=2)
+    ip_address = fake.ipv4()
+
+    with client.application.app_context():
+        entry = BlacklistEntry(
+            email=email,
+            app_uuid=fake.uuid4(),
+            blocked_reason=reason,
+            ip_address=ip_address
+        )
+        db.session.add(entry)
+        db.session.commit()
+
     response = client.get(f"/blacklists/{email}", headers=auth_header())
     assert response.status_code == 200
-    assert response.get_json() == {"blacklisted": True, "reason": mock_entry.blocked_reason}
+    assert response.get_json() == {"blacklisted": True, "reason": reason}
 
-@patch("app.routes.BlacklistEntry.query")
-def test_check_non_blacklisted_email(mock_query, client):
-    mock_query.filter_by.return_value.first.return_value = None
-
+def test_check_non_blacklisted_email(client):
     email = fake.email()
+
     response = client.get(f"/blacklists/{email}", headers=auth_header())
     assert response.status_code == 200
     assert response.get_json() == {"blacklisted": False}
+

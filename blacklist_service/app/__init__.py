@@ -8,9 +8,14 @@ from .routes import register_routes
 from . import models  # Para asegurar que SQLAlchemy registre los modelos
 
 
-def create_app():
+def create_app(config_class=None):
     application = Flask(__name__)
-    application.config.from_object(Config)
+    #application.config.from_object(Config)
+
+    if config_class:
+        application.config.from_object(config_class)
+    else:
+        application.config.from_object(Config)
 
     jwt.init_app(application)
     ma.init_app(application)
