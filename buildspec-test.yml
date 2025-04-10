@@ -15,7 +15,6 @@ phases:
   build:
     commands:
       - echo "✅ Ejecutando pruebas..."
-      - cd blacklist_service
       - pytest tests/ --maxfail=1 --disable-warnings --tb=short > result.log || true
 
 artifacts:
