@@ -8,24 +8,27 @@ from .routes import register_routes
 from . import models  # Para asegurar que SQLAlchemy registre los modelos
 
 
-def create_app():
-    app = Flask(__name__)
-    app.config.from_object(Config)
+def create_app(config_class=None):
+    application = Flask(__name__)
+    #application.config.from_object(Config)
 
-    jwt.init_app(app)
-    ma.init_app(app)
-    db.init_app(app)
+    if config_class:
+        application.config.from_object(config_class)
+    else:
+        application.config.from_object(Config)
 
-    with app.app_context():
+    jwt.init_app(application)
+    ma.init_app(application)
+    db.init_app(application)
+
+    with application.app_context():
         db.create_all()
         # token = create_access_token(identity="prueba@example.com")
         # app.config["STATIC_JWT_TOKEN"] = token  # 🔐 Guardamos el token generado
         # print(f"\n🔑 TOKEN DE PRUEBA:\nBearer {token}\n")
 
-    api = Api(app)
+    api = Api(application)
     register_routes(api)
   
 
-    return app
-
-app = create_app()
+    return application
