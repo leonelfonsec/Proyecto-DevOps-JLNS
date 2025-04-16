@@ -11,3 +11,4 @@ pytest
 Flask-Testing
 pytest-flask
 faker
+gunicorn
