@@ -7,8 +7,7 @@ phases:
 
   pre_build:
     commands:
-      - echo "Instalando dependencias..."
-      - cp ../Procfile blacklist_service/              # 🔁 Copiar el Procfile al root del artefacto
+      - echo "Instalando dependencias..."      # 🔁 Copiar el Procfile al root del artefacto
       - cp ../Dockerrun.aws.json blacklist_service/
       - cd blacklist_service
       - pip install --upgrade pip
