@@ -10,11 +10,15 @@ phases:
       - pip install pytest
   pre_build:
     commands:
+      - echo "[Pre-Build Phase] Estructura de archivos:"
+      - ls -R
       - echo "[Pre-Build Phase] Ejecutando pruebas unitarias..."
+      - export PYTHONPATH=$PYTHONPATH:$(pwd)
       - pytest tests/
   build:
     commands:
       - echo "[Build Phase] Copiando archivos de blacklist_service/"
+      - export PYTHONPATH=$PYTHONPATH:$(pwd)
 artifacts:
   files:
     - '**/*'
