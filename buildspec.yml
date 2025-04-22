@@ -3,22 +3,20 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.11
-
+      python: 3.10
+    commands:
+      - echo "[Install Phase] Instalando dependencias..."
+      - pip install -r blacklist_service/requirements.txt
+      - pip install pytest
   pre_build:
     commands:
-      - echo "Instalando dependencias..."
-      - cd blacklist_service
-      - pip install --upgrade pip
-      - pip install -r requirements.txt --verbose
-
+      - echo "[Pre-Build Phase] Ejecutando pruebas unitarias..."
+      - pytest blacklist_service/tests/
   build:
     commands:
-      - echo "✅ Build completado. Preparando artefactos para despliegue..."
-      - pytest tests/ --maxfail=1 --disable-warnings --tb=short > result.log || true
-
+      - echo "[Build Phase] Copiando archivos de blacklist_service/"
+      - cp -r blacklist_service/* .
 artifacts:
-  base-directory: 'blacklist_service'
   files:
     - '**/*'
-    - '../result.log'
+  discard-paths: yes
