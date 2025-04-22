@@ -10,6 +10,7 @@ markupsafe==2.0.1
 SQLAlchemy==1.4.46
 gunicorn==20.1.0
 
+
 # Test dependencies
 pytest==7.4.0
 pytest-flask==1.2.0
