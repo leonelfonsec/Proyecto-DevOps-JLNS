@@ -21,4 +21,4 @@ artifacts:
   base-directory: 'blacklist_service'
   files:
     - '**/*'
-    - ../result.log
+    - '../result.log'
