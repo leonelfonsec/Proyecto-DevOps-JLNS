@@ -1,6 +1,6 @@
 services:
   blacklist_service:
-    build: ./blacklist_service
+    build: .
     ports:
       - "80:5000"
     environment:

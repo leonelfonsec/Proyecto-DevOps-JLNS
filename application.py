@@ -1,4 +1,4 @@
-from blacklist_service.app import create_app
+from app import create_app
 
 application = create_app()
 #print(f"\n🔗 DATABASE URI en runtime: {application.config['SQLALCHEMY_DATABASE_URI']}\n")

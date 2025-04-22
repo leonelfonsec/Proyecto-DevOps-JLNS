@@ -17,7 +17,7 @@ phases:
       - pytest tests/
   build:
     commands:
-      - echo "[Build Phase] Copiando archivos de blacklist_service/"
+      - echo "[Build Phase] Copiando archivos"
       - export PYTHONPATH=$PYTHONPATH:$(pwd)
 artifacts:
   files:
