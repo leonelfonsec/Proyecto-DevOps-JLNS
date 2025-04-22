@@ -11,6 +11,7 @@ phases:
   pre_build:
     commands:
       - echo "[Pre-Build Phase] Ejecutando pruebas unitarias..."
+      - export PYTHONPATH=$PYTHONPATH:$(pwd)/blacklist_service
       - pytest blacklist_service/tests/
   build:
     commands:
