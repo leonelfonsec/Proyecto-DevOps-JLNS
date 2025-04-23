@@ -44,9 +44,5 @@ phases:
 
 artifacts:
   files:
-    - application.py
-    - requirements.txt
-    - Procfile
-    - config.py
-    - app/**/*
+    - '**/*'
   discard-paths: yes

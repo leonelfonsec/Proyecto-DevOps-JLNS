@@ -1,10 +1,10 @@
 from flask import Flask
 from flask_restful import Api
 from flask_jwt_extended import create_access_token
-from app.extensions import db, ma, jwt
-from app.models import db
-from app.routes import register_routes
-from app import models
+from extensions import db, ma, jwt
+from models import db
+from routes import register_routes
+from . import models
 from config import Config
 import sys
 import os
