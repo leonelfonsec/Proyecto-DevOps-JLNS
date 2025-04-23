@@ -27,7 +27,6 @@ artifacts:
     - application.py
     - config.py
     - requirements.txt
-    - docker-compose.yml
     - Dockerfile
     - entrypoint.sh
     - app/**/*
