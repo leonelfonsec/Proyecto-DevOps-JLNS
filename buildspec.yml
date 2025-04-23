@@ -4,21 +4,23 @@ phases:
   install:
     runtime-versions:
       python: 3.11
+    commands:
+      - pip install -r requirements.txt
 
   pre_build:
     commands:
-      - echo "Instalando dependencias..."
-      - cd blacklist_service
-      - pip install --upgrade pip
-      - pip install -r requirements.txt --verbose
+      - echo "Ejecutando pruebas (opcional)..."
+      - pytest -v --tb=short tests/
+
 
   build:
     commands:
-      - echo "✅ Build completado. Preparando artefactos para despliegue..."
-      - pytest tests/ --maxfail=1 --disable-warnings --tb=short > result.log || true
+      - echo "Construyendo el archivo ZIP con Dockerrun.aws.json..."
+      - ls -la
+
 
 artifacts:
-  base-directory: 'blacklist_service'
   files:
-    - '**/*'
-    - ../result.log
+    - Dockerrun.aws.json
+  discard-paths: no
+
