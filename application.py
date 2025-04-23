@@ -37,7 +37,8 @@ def create_app(config_class=None):
 
     return application
 
-application = create_app()
+if __name__ == "__main__":
+    application = create_app()
 #print(f"\n🔗 DATABASE URI en runtime: {application.config['SQLALCHEMY_DATABASE_URI']}\n")
 
 # if __name__ == "__main__":
