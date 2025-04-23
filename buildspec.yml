@@ -15,9 +15,8 @@ phases:
     commands:
       - echo "Moviendo archivos a raíz del paquete de despliegue"
       - mkdir -p deployment
-      - cp -r * deployment/
-      - cd deployment
-      - rm -rf deployment .git __pycache__ .venv *.zip
+      - shopt -s extglob
+      - cp -r !(deployment) deployment/
 
 artifacts:
   files:
