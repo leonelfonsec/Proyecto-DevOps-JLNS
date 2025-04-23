@@ -15,18 +15,19 @@ phases:
 
   build:
     commands:
-      - set -e
-      - echo "Empaquetando aplicación..."
-      - ls -la
-      - mkdir packaged
-      - ls -la >> files-before-cp.log
-      - cp -v application.py config.py entrypoint.sh Procfile requirements.txt packaged/
-      - cp -rv app packaged/
-      - cd packaged
-      - zip -r ../app-deploy.zip . -x "*.pyc" "*__pycache__*" "*.DS_Store" ".venv/*"
+      - echo "Construyendo la aplicación..."
+      # - set -e
+      # - echo "Empaquetando aplicación..."
+      # - ls -la
+      # - mkdir packaged
+      # - ls -la >> files-before-cp.log
+      # - cp -v application.py config.py entrypoint.sh Procfile requirements.txt packaged/
+      # - cp -rv app packaged/
+      # - cd packaged
+      # - zip -r ../app-deploy.zip . -x "*.pyc" "*__pycache__*" "*.DS_Store" ".venv/*"
 
 
 artifacts:
   files:
-    - app-deploy.zip
+    - '**/*'
 
