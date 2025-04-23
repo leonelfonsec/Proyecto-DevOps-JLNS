@@ -24,7 +24,7 @@ def create_app(config_class=None):
     ma.init_app(application)
     db.init_app(application)
 
-    if not application.config.get("TESTING"):
+    if not application.config.get("TESTING", False):
         with application.app_context():
             db.create_all()
         # token = create_access_token(identity="prueba@example.com")
