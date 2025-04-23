@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.10
+      python: 3.11
     commands:
       - echo "[Install Phase] Instalando dependencias..."
       - pip install -r requirements.txt
@@ -17,10 +17,11 @@ phases:
       - pytest tests/
   build:
     commands:
-      - echo "[Build Phase] Copiando archivos"
-      - export PYTHONPATH=$PYTHONPATH:$(pwd)
+      - echo "[Build Phase] Empaquetando aplicación para Elastic Beanstalk..."
+      - zip -r app.zip * .ebextensions -x "*.DS_Store" "__MACOSX/*"
+      - echo "[Build Phase] Archivo app.zip generado correctamente."
 artifacts:
   files:
     - '**/*'
-  discard-paths: no
+  discard-paths: yes
 
