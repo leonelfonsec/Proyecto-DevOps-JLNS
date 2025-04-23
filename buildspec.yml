@@ -2,26 +2,23 @@ version: 0.2
 
 phases:
   install:
-    runtime-versions:
-      python: 3.11
     commands:
       - pip install -r requirements.txt
       - pip install pytest
-
   pre_build:
     commands:
       - echo "Configurando entorno y ejecutando pruebas..."
       - export PYTHONPATH=$PYTHONPATH:$(pwd)
-      - pytest tests/ || echo "Las pruebas fallaron pero seguimos con el build"
+      - pytest tests/ || echo "Las pruebas fallaron pero seguimos..."
 
   build:
     commands:
-      - echo "Build completo. Nada que empaquetar porque se desplegará todo el proyecto."
+      - echo "Moviendo archivos a raíz del paquete de despliegue"
+      - mkdir -p deployment
+      - cp -r * deployment/
+      - cd deployment
+      - rm -rf deployment .git __pycache__ .venv *.zip
+
 artifacts:
   files:
-    - '**/*'
-    - '!*.zip'
-    - '!.git/**'
-    - '!__pycache__/**'
-    - '!.venv/**'
-
+    - deployment/**/*
