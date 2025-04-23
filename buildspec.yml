@@ -5,25 +5,19 @@ phases:
     runtime-versions:
       python: 3.11
     commands:
-      - echo "[Install Phase] Instalando dependencias..."
       - pip install -r requirements.txt
       - pip install pytest
+
   pre_build:
     commands:
-      - echo "[Pre-Build Phase] Estructura de archivos:"
-      - ls -R
-      - echo "[Pre-Build Phase] Ejecutando pruebas unitarias..."
       - export PYTHONPATH=$PYTHONPATH:$(pwd)
       - pytest tests/
+
   build:
     commands:
-      - echo "[Build Phase] Empaquetando aplicación..."
-      - mkdir app_bundle
-      - rsync -av --progress . app_bundle --exclude='.git' --exclude='*.DS_Store' --exclude='__MACOSX'
-      - cd app_bundle
-      - zip -r ../app.zip . 
+      - zip -r app.zip . -x '*.git*' '*.DS_Store' '*__MACOSX*'
+
 artifacts:
   files:
-    - '**/*'
-  discard-paths: yes
+    - app.zip
 
