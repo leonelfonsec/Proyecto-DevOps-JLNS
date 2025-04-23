@@ -15,7 +15,10 @@ phases:
 
   build:
     commands:
-      - zip -r app.zip . -x '*.git*' '*.DS_Store' '*__MACOSX*'
+      - mkdir app_bundle
+      - rsync -av --progress ./ ./app_bundle --exclude='.git' --exclude='*.DS_Store' --exclude='__MACOSX'
+      - cd app_bundle
+      - zip -r ../app.zip .
 
 artifacts:
   files:
