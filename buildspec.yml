@@ -24,12 +24,12 @@ artifacts:
   files:
     #- app-deploy.zip
     - Dockerrun.aws.json
-    - application.py
-    - config.py
-    - requirements.txt
-    - Dockerfile
-    - entrypoint.sh
-    - app/**/*
-    - tests/**/*
+    #- application.py
+    #- config.py
+    #- requirements.txt
+    #- Dockerfile
+    #- entrypoint.sh
+    #- app/**/*
+    #- tests/**/*
   discard-paths: no
 
