@@ -10,14 +10,18 @@ phases:
   pre_build:
     commands:
       - echo "Ejecutando pruebas (opcional)..."
-      - pytest tests/
+      - pytest -v --tb=short tests/
+
 
   build:
     commands:
+      - set -e
       - echo "Empaquetando aplicación..."
+      - ls -la
       - mkdir packaged
-      - cp application.py config.py entrypoint.sh Procfile requirements.txt packaged/
-      - cp -r app packaged/
+      - ls -la >> files-before-cp.log
+      - cp -v application.py config.py entrypoint.sh Procfile requirements.txt packaged/
+      - cp -rv app packaged/
       - cd packaged
       - zip -r ../app-deploy.zip . -x "*.pyc" "*__pycache__*" "*.DS_Store" ".venv/*"
 
