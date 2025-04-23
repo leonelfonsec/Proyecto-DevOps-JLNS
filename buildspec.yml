@@ -15,14 +15,12 @@ phases:
 
   build:
     commands:
-      - echo "Construyendo la aplicación..."
-      - mkdir bundle
-      - cp Dockerrun.aws.json bundle/
-      - cd bundle
-      - zip -r ../app-deploy.zip Dockerrun.aws.json
+      - echo "Construyendo el archivo ZIP con Dockerrun.aws.json..."
+      - zip app-deploy.zip Dockerrun.aws.json
 
 
 artifacts:
   files:
     - app-deploy.zip
+  discard-paths: yes
 
