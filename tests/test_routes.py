@@ -1,8 +1,8 @@
 import pytest
 from unittest.mock import patch, MagicMock
-from models import BlacklistEntry
-from schemas import BlacklistSchema
-from routes import STATIC_TOKEN
+from app.models import BlacklistEntry
+from app.schemas import BlacklistSchema
+from app.routes import STATIC_TOKEN
 from faker import Faker
 from application import create_app
 
@@ -19,7 +19,7 @@ def client():
     app = create_app(TestConfig)
 
     with app.app_context():
-        from models import db
+        from app.models import db
         db.create_all()
 
     with app.test_client() as client:
@@ -61,7 +61,7 @@ def test_post_blacklist_invalid_payload(mock_session, client):
     assert "errors" in response.get_json()
 
 def test_check_blacklisted_email(client):
-    from models import db, BlacklistEntry
+    from app.models import db, BlacklistEntry
 
     email = fake.email()
     reason = fake.sentence(nb_words=2)
