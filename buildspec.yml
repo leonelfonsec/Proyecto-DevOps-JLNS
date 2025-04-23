@@ -10,11 +10,13 @@ phases:
   pre_build:
     commands:
       - echo "Ejecutando pruebas (opcional)..."
-      - pytest tests/ || echo "Las pruebas fallaron pero el proceso continúa"
+      - pytest tests/
 
   build:
     commands:
-      - echo "Generando archivo ZIP del contenido del repositorio..."
+      - echo "Copiando archivo principal al root (por seguridad)..."
+      - cp application.py ./application.py
+      - echo "Empaquetando aplicación..."
       - zip -r app_package.zip . -x "*.git*" "tests/*" "*.venv*" "__pycache__/*" "*.DS_Store"
 
 artifacts:
