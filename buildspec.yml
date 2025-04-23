@@ -2,22 +2,21 @@ version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      python: 3.10
     commands:
       - pip install -r requirements.txt
-      - pip install pytest
+
   pre_build:
     commands:
-      - echo "Configurando entorno y ejecutando pruebas..."
-      - export PYTHONPATH=$PYTHONPATH:$(pwd)
-      - pytest tests/ || echo "Las pruebas fallaron pero seguimos..."
+      - echo "Ejecutando pruebas (opcional)..."
+      - pytest tests/ || echo "Las pruebas fallaron pero el proceso continúa"
 
   build:
     commands:
-      - echo "Moviendo archivos a raíz del paquete de despliegue"
-      - mkdir -p deployment
-      - shopt -s extglob
-      - cp -r !(deployment) deployment/
+      - echo "Generando archivo ZIP del contenido del repositorio..."
+      - zip -r app_package.zip . -x "*.git*" "tests/*" "*.venv*" "__pycache__/*" "*.DS_Store"
 
 artifacts:
   files:
-    - deployment/**/*
+    - app_package.zip

@@ -1,1 +1,1 @@
-web: gunicorn Proyecto-DevOps-JLNS.application:application
+web: gunicorn application:application
