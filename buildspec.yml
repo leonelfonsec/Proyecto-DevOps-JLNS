@@ -14,8 +14,6 @@ phases:
 
   build:
     commands:
-      - echo "Copiando archivo principal al root (por seguridad)..."
-      - cp application.py ./application.py
       - echo "Empaquetando aplicación..."
       - zip -r app-deploy.zip app application.py requirements.txt Procfile config.py entrypoint.sh \
         -x "*.pyc" "*__pycache__*" ".venv/*" ".DS_Store"
