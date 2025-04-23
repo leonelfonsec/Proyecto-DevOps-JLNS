@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.10
+      python: 3.11
     commands:
       - pip install -r requirements.txt
 
@@ -16,18 +16,13 @@ phases:
   build:
     commands:
       - echo "Construyendo la aplicación..."
-      # - set -e
-      # - echo "Empaquetando aplicación..."
-      # - ls -la
-      # - mkdir packaged
-      # - ls -la >> files-before-cp.log
-      # - cp -v application.py config.py entrypoint.sh Procfile requirements.txt packaged/
-      # - cp -rv app packaged/
-      # - cd packaged
-      # - zip -r ../app-deploy.zip . -x "*.pyc" "*__pycache__*" "*.DS_Store" ".venv/*"
+      - mkdir bundle
+      - cp Dockerrun.aws.json bundle/
+      - cd bundle
+      - zip -r ../app-deploy.zip Dockerrun.aws.json
 
 
 artifacts:
   files:
-    - '**/*'
+    - app-deploy.zip
 
