@@ -18,7 +18,7 @@ phases:
   build:
     commands:
       - echo "[Build Phase] Empaquetando aplicación para Elastic Beanstalk..."
-      - zip -r app.zip * .ebextensions -x "*.DS_Store" "__MACOSX/*"
+      #- zip -r app.zip * .ebextensions -x "*.DS_Store" "__MACOSX/*"
       - echo "[Build Phase] Archivo app.zip generado correctamente."
 artifacts:
   files:
