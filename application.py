@@ -24,8 +24,9 @@ def create_app(config_class=None):
     ma.init_app(application)
     db.init_app(application)
 
-    with application.app_context():
-        db.create_all()
+    if not application.config.get("TESTING"):
+        with application.app_context():
+            db.create_all()
         # token = create_access_token(identity="prueba@example.com")
         # app.config["STATIC_JWT_TOKEN"] = token  # 🔐 Guardamos el token generado
         # print(f"\n🔑 TOKEN DE PRUEBA:\nBearer {token}\n")
