@@ -15,8 +15,12 @@ phases:
   build:
     commands:
       - echo "Empaquetando aplicación..."
-      - zip -r app-deploy.zip app application.py requirements.txt Procfile config.py entrypoint.sh \
-        -x "*.pyc" "*__pycache__*" ".venv/*" ".DS_Store"
+      - mkdir packaged
+      - cp application.py config.py entrypoint.sh Procfile requirements.txt packaged/
+      - cp -r app packaged/
+      - cd packaged
+      - zip -r ../app-deploy.zip . -x "*.pyc" "*__pycache__*" "*.DS_Store" ".venv/*"
+
 
 artifacts:
   files:
