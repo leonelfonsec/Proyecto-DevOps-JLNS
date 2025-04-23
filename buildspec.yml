@@ -1,3 +1,28 @@
+# version: 0.2
+
+# phases:
+#   install:
+#     runtime-versions:
+#       python: 3.10
+#     commands:
+#       - pip install -r requirements.txt
+
+#   pre_build:
+#     commands:
+#       - echo "Ejecutando pruebas (opcional)..."
+#       - pytest tests/
+
+#   build:
+#     commands:
+#       - echo "Copiando archivo principal al root (por seguridad)..."
+#       - cp application.py ./application.py
+#       - echo "Empaquetando aplicación..."
+#       - zip -r app_package.zip . -x "*.git*" "tests/*" "*.venv*" "__pycache__/*" "*.DS_Store"
+
+# artifacts:
+#   files:
+#     - app_package.zip
+
 version: 0.2
 
 phases:
@@ -5,6 +30,7 @@ phases:
     runtime-versions:
       python: 3.10
     commands:
+      - echo "Instalando dependencias..."
       - pip install -r requirements.txt
 
   pre_build:
@@ -14,11 +40,9 @@ phases:
 
   build:
     commands:
-      - echo "Copiando archivo principal al root (por seguridad)..."
-      - cp application.py ./application.py
-      - echo "Empaquetando aplicación..."
-      - zip -r app_package.zip . -x "*.git*" "tests/*" "*.venv*" "__pycache__/*" "*.DS_Store"
+      - echo "Build completado con éxito. Nada que compilar por ahora."
 
 artifacts:
   files:
-    - app_package.zip
+    - '**/*'
+  discard-paths: yes
