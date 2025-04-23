@@ -17,9 +17,10 @@ phases:
       - pytest tests/
   build:
     commands:
-      - echo "[Build Phase] Empaquetando aplicación para Elastic Beanstalk..."
-      #- zip -r app.zip * .ebextensions -x "*.DS_Store" "__MACOSX/*"
-      - echo "[Build Phase] Archivo app.zip generado correctamente."
+      - mkdir app_bundle
+      - cp -r * .ebextensions app_bundle/
+      - cd app_bundle
+      - zip -r ../app.zip . -x "*.DS_Store" "__MACOSX/*"
 artifacts:
   files:
     - '**/*'
