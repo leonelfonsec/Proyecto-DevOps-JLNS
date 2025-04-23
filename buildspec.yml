@@ -16,11 +16,21 @@ phases:
   build:
     commands:
       - echo "Construyendo el archivo ZIP con Dockerrun.aws.json..."
-      - zip app-deploy.zip Dockerrun.aws.json
+      #- zip app-deploy.zip Dockerrun.aws.json
+      - ls -la
 
 
 artifacts:
   files:
-    - app-deploy.zip
-  discard-paths: yes
+    #- app-deploy.zip
+    - Dockerrun.aws.json
+    - application.py
+    - config.py
+    - requirements.txt
+    - docker-compose.yml
+    - Dockerfile
+    - entrypoint.sh
+    - app/**/*
+    - tests/**/*
+  discard-paths: no
 
