@@ -17,8 +17,10 @@ phases:
       - pytest tests/
   build:
     commands:
-      - mkdir app_bundle
-      - cp -r * .ebextensions app_bundle/
+      - echo "[Build Phase] Empaquetando aplicación"
+      - mkdir -p app_bundle
+      - shopt -s dotglob
+      - cp -r ./* app_bundle/
       - cd app_bundle
       - zip -r ../app.zip . -x "*.DS_Store" "__MACOSX/*"
 artifacts:
