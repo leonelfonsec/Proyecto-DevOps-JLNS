@@ -10,16 +10,16 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t python_app .
-      - docker tag python_app:latest 646322278084.dkr.ecr.us-east-2.amazonaws.com/python_app:latest
+      - docker build -t mi-microservicio .
+      - docker tag mi-microservicio:latest 646322278084.dkr.ecr.us-east-2.amazonaws.com/mi-microservicio:latest
 
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 646322278084.dkr.ecr.us-east-2.amazonaws.com/python_app:latest
+      - docker push 646322278084.dkr.ecr.us-east-2.amazonaws.com/mi-microservicio:latest
       - echo Writing image definitions file...
-      - printf '[{"name":"microservicio","imageUri":"646322278084.dkr.ecr.us-east-2.amazonaws.com/python_app:latest"}]' > imagedefinitions.json
+      - printf '[{"name":"microservicio","imageUri":"646322278084.dkr.ecr.us-east-2.amazonaws.com/mi-microservicio:latest"}]' > imagedefinitions.json
       - echo Writing appspec & taskdef
       - cat appspec.json
       - cat taskdef.json
