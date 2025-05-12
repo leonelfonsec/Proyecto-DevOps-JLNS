@@ -10,7 +10,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t mi-microservicio .
+      - docker build -t python_app .
       - docker tag mi-microservicio:latest 646322278084.dkr.ecr.us-east-2.amazonaws.com/mi-microservicio:latest
 
   post_build:
