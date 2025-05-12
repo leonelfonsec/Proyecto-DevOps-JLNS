@@ -20,7 +20,7 @@ phases:
       - docker push 646322278084.dkr.ecr.us-east-2.amazonaws.com/mi-microservicio:latest
       - echo Writing image definitions file...
       - printf '[{"name":"microservicio","imageUri":"646322278084.dkr.ecr.us-east-2.amazonaws.com/mi-microservicio:latest"}]' > imagedefinitions.json
-      - echo Writing appspec & taskdef
+      - echo "Writing appspec and taskdef"
       - cat appspec.json
       - cat taskdef.json
       - echo Writing imagedefinitions.json
