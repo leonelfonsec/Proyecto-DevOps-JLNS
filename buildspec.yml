@@ -17,7 +17,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 646322278084.dkr.ecr.us-east-2.amazonaws.com/mi-microservicio:latest
+      - docker push 646322278084.dkr.ecr.us-east-2.amazonaws.com/python_app:latest
       - echo Writing image definitions file...
       - printf '[{"name":"microservicio","imageUri":"646322278084.dkr.ecr.us-east-2.amazonaws.com/mi-microservicio:latest"}]' > imagedefinitions.json
       - echo Writing appspec \& taskdef
