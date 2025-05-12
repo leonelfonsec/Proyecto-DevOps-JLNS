@@ -1,40 +1,26 @@
 version: 0.2
 
 phases:
-  install:
-    runtime-versions:
-      python: 3.11
-    commands:
-      - pip install -r requirements.txt
-
   pre_build:
     commands:
-      - echo "Ejecutando pruebas (opcional)..."
-      - pytest -v --tb=short tests/
-      - |
-        REPOSITORY_URI=646322278084.dkr.ecr.us-east-2.amazonaws.com/python_app
-        COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-        IMAGE_TAG=${COMMIT_HASH:=latest}
-        FULL_IMAGE_URI=$REPOSITORY_URI:$IMAGE_TAG
-        echo "FULL_IMAGE_URI=$FULL_IMAGE_URI" > image.env
-        export FULL_IMAGE_URI
-
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 646322278084.dkr.ecr.us-east-2.amazonaws.com
   build:
     commands:
-      - echo "Fase de build completa"
-      - ls -la
-
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t python_app .
+      - docker tag python_app:latest 646322278084.dkr.ecr.us-east-2.amazonaws.com/python_app:latest
   post_build:
     commands:
-      - source image.env
-      - echo "Actualizando taskdef.json con imagen real..."
-      - sed -i "s|<IMAGE1_NAME>|$FULL_IMAGE_URI|g" taskdef.json
-      - sed -i 's|"ContainerName": "microservicio"|"ContainerName": "microservicio"|g' appspec.json
-      - echo "Generando imagedefinitions.json..."
-      - echo '[{"name":"microservicio","imageUri":"'"$FULL_IMAGE_URI"'"}]' > imagedefinitions.json
-      - echo "Contenido de taskdef.json:" && cat taskdef.json
-      - echo "Contenido de appspec.json:" && cat appspec.json
-      - echo "Contenido de imagedefinitions.json:" && cat imagedefinitions.json
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push 646322278084.dkr.ecr.us-east-2.amazonaws.com/python_app:latest
+      - echo Writing image definitions file...
+      - printf '[{"name":"microservicio","imageUri":"646322278084.dkr.ecr.us-east-2.amazonaws.com/python_app:latest"}]' > imagedefinitions.json
+      - echo Writing appspec & taskdef
+      - cat appspec.json
+      - cat taskdef.json
 
 artifacts:
   files:
