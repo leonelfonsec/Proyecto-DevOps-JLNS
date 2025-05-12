@@ -17,10 +17,13 @@ phases:
     commands:
       - echo "Construyendo el archivo ZIP con Dockerrun.aws.json..."
       - ls -la
+      - echo "Fase de build completa"
 
 
 artifacts:
   files:
-    - Dockerrun.aws.json
+    - taskdef.json
+    - appspec.json
+    - imagedefinitions.json
   discard-paths: no
 
