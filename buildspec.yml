@@ -18,6 +18,13 @@ phases:
       - echo "Construyendo el archivo ZIP con Dockerrun.aws.json..."
       - ls -la
       - echo "Fase de build completa"
+  
+  post_build:
+    commands:
+      - echo "Generando imagedefinitions.json..."
+      - echo '[{"name":"mi-microservicio","imageUri":"646322278084.dkr.ecr.us-east-2.amazonaws.com/python_app:latest"}]' > imagedefinitions.json
+
+
 
 
 artifacts:
