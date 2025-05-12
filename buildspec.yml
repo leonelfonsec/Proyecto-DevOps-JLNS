@@ -1,36 +1,35 @@
 version: 0.2
-
 phases:
   install:
     runtime-versions:
       python: 3.11
     commands:
       - pip install -r requirements.txt
-
   pre_build:
     commands:
       - echo "Ejecutando pruebas (opcional)..."
       - pytest -v --tb=short tests/
-
-
+      - REPOSITORY_URI=646322278084.dkr.ecr.us-east-2.amazonaws.com/python_app
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
+      - FULL_IMAGE_URI=$REPOSITORY_URI:$IMAGE_TAG
   build:
     commands:
-      - echo "Construyendo el archivo ZIP con Dockerrun.aws.json..."
-      - ls -la
       - echo "Fase de build completa"
-  
+      - ls -la
   post_build:
-  commands:
-    - echo "Generando imagedefinitions.json..."
-    - printf '[{"name":"microservicio","imageUri":"%s"}]' $REPOSITORY_URI:$CODEBUILD_RESOLVED_SOURCE_VERSION > imagedefinitions.json
-
-
-
-
+    commands:
+      - echo "Actualizando taskdef.json con imagen real..."
+      - sed -i "s|<IMAGE1_NAME>|$FULL_IMAGE_URI|g" taskdef.json
+      - echo "Generando imagedefinitions.json..."
+      - echo '[{"name":"microservicio","imageUri":"'$FULL_IMAGE_URI'"}]' > imagedefinitions.json
+      - echo "Contenido de taskdef.json:"
+      - cat taskdef.json
+      - echo "Contenido de appspec.json:"
+      - cat appspec.json
 artifacts:
   files:
-    - taskdef.json
     - appspec.json
+    - taskdef.json
     - imagedefinitions.json
   discard-paths: no
-
