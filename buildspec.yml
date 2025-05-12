@@ -21,12 +21,16 @@ phases:
     commands:
       - echo "Actualizando taskdef.json con imagen real..."
       - sed -i "s|<IMAGE1_NAME>|$FULL_IMAGE_URI|g" taskdef.json
+      # También corrige el nombre del contenedor en appspec.json si es necesario
+      - sed -i 's|"ContainerName": "mi-microservicio"|"ContainerName": "microservicio"|g' appspec.json
       - echo "Generando imagedefinitions.json..."
       - echo '[{"name":"microservicio","imageUri":"'$FULL_IMAGE_URI'"}]' > imagedefinitions.json
       - echo "Contenido de taskdef.json:"
       - cat taskdef.json
       - echo "Contenido de appspec.json:"
       - cat appspec.json
+      - echo "Contenido de imagedefinitions.json:"
+      - cat imagedefinitions.json
 artifacts:
   files:
     - appspec.json

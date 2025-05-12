@@ -7,7 +7,7 @@
           "Properties": {
             "TaskDefinition": "<TASK_DEFINITION>",
             "LoadBalancerInfo": {
-              "ContainerName": "mi-microservicio",
+              "ContainerName": "microservicio",
               "ContainerPort": 5000
             }
           }
