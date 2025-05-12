@@ -5,12 +5,14 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 646322278084.dkr.ecr.us-east-2.amazonaws.com
+
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker build -t python_app .
       - docker tag python_app:latest 646322278084.dkr.ecr.us-east-2.amazonaws.com/python_app:latest
+
   post_build:
     commands:
       - echo Build completed on `date`
@@ -21,6 +23,8 @@ phases:
       - echo Writing appspec & taskdef
       - cat appspec.json
       - cat taskdef.json
+      - echo Writing imagedefinitions.json
+      - cat imagedefinitions.json
 
 artifacts:
   files:
