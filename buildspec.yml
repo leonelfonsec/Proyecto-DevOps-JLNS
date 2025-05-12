@@ -20,9 +20,9 @@ phases:
       - echo "Fase de build completa"
   
   post_build:
-    commands:
-      - echo "Generando imagedefinitions.json..."
-      - echo '[{"name":"mi-microservicio","imageUri":"646322278084.dkr.ecr.us-east-2.amazonaws.com/python_app:latest"}]' > imagedefinitions.json
+  commands:
+    - echo "Generando imagedefinitions.json..."
+    - printf '[{"name":"microservicio","imageUri":"%s"}]' $REPOSITORY_URI:$CODEBUILD_RESOLVED_SOURCE_VERSION > imagedefinitions.json
 
 
 
