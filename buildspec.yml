@@ -11,7 +11,8 @@ phases:
   pre_build:
     commands:
       - echo Ejecutando pruebas unitarias...
-      - pytest tests/
+      - cd blacklist_service
+      - pytest ../tests/
   build:
     commands:
       - echo Construcción completada exitosamente.
