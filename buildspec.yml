@@ -6,7 +6,7 @@ phases:
       python: 3.8
     commands:
       - echo Instalando dependencias...
-      - pip install -r requirements.txt
+      - pip install -r blacklist_service/requirements.txt
       - pip install pytest faker
   pre_build:
     commands:
