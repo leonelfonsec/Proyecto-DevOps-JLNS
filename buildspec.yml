@@ -9,12 +9,11 @@ phases:
       - pip install -r blacklist_service/requirements.txt
       - pip install pytest faker
 
-  pre_build:
+    pre_build:
     commands:
       - echo Ejecutando pruebas unitarias...
-      - cd blacklist_service
-      - export PYTHONPATH=$PYTHONPATH:$(pwd)
-      - pytest ../tests
+      - export PYTHONPATH=$PYTHONPATH:$(pwd)/blacklist_service
+      - pytest tests/
 
   build:
     commands:
