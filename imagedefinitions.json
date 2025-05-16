@@ -1,0 +1,6 @@
+[
+  {
+    "name": "blacklist",
+    "imageUri": "416825837619.dkr.ecr.us-east-1.amazonaws.com/blacklist-service:latest"
+  }
+]
