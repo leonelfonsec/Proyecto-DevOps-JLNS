@@ -8,14 +8,21 @@ phases:
       - echo Instalando dependencias...
       - pip install -r blacklist_service/requirements.txt
       - pip install pytest faker
+
   pre_build:
     commands:
       - echo Ejecutando pruebas unitarias...
-      - export PYTHONPATH=$PYTHONPATH:$(pwd)/blacklist_service
-      - pytest tests/
+      - cd blacklist_service
+      - export PYTHONPATH=$PYTHONPATH:$(pwd)
+      - pytest ../tests
+
   build:
     commands:
       - echo Construcción completada exitosamente.
+      - echo Construyendo imagen Docker...
+      - docker build -t mi-microservicio .
+      - docker tag mi-microservicio:latest 646322278084.dkr.ecr.us-east-2.amazonaws.com/mi-microservicio:latest
+
   post_build:
     commands:
       - echo Fase post_build finalizada.
