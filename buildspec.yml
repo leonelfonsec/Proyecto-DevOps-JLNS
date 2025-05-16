@@ -13,7 +13,7 @@ phases:
     commands:
       - echo Ejecutando pruebas unitarias...
       - export PYTHONPATH=$PYTHONPATH:$(pwd)/blacklist_service
-      - pytest tests/
+      - pytest blacklist_service/tests/
 
   build:
     commands:
