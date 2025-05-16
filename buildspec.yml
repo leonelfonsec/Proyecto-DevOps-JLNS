@@ -9,7 +9,7 @@ phases:
       - pip install -r blacklist_service/requirements.txt
       - pip install pytest faker
 
-    pre_build:
+  pre_build:
     commands:
       - echo Ejecutando pruebas unitarias...
       - export PYTHONPATH=$PYTHONPATH:$(pwd)/blacklist_service
@@ -19,8 +19,7 @@ phases:
     commands:
       - echo Construcción completada exitosamente.
       - echo Construyendo imagen Docker...
-      - docker build -t mi-microservicio blacklist_service
-      - docker tag mi-microservicio:latest 646322278084.dkr.ecr.us-east-2.amazonaws.com/mi-microservicio:latest
+      - docker build -t mi-microservicio -f blacklist_service/Dockerfile blacklist_service
 
   post_build:
     commands:
