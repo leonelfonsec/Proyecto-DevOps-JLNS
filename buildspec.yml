@@ -37,8 +37,12 @@ phases:
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 416825837619.dkr.ecr.us-east-1.amazonaws.com
       - docker tag mi-microservicio:latest 416825837619.dkr.ecr.us-east-1.amazonaws.com/blacklist-service:latest
       - docker push 416825837619.dkr.ecr.us-east-1.amazonaws.com/blacklist-service:latest
+      - printf '[{"name":"blacklist","imageUri":"416825837619.dkr.ecr.us-east-1.amazonaws.com/blacklist-service:latest"}]' > imagedefinitions.json
+
 
 
 artifacts:
   files:
-    - '**/*'
+    - appspec.json
+    - taskdef.json
+    - imagedefinitions.json
