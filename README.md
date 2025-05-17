@@ -1,6 +1,6 @@
 # Blacklist Microservice Project
 
-Este repositorio forma parte de una arquitectura basada en microservicios. Actualmente contiene el microservicio de listas negras (`blacklist_service`) y la configuración general del entorno de desarrollo y despliegue. Está diseñado desde el inicio para ser escalable y facilitar la incorporación de nuevos microservicios en el futuro.
+Este repositorio forma parte de una arquitectura basada en microservicios. Actualmente contiene el microservicio de listas negras (`blacklist_service`) y la configuración general del entorno de desarrollo y despliegue. Está diseñado desde el inicio para ser escalable y facilitar la incorporación de nuevos microservicios en el futuro. 
 
 ---
 
