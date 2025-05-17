@@ -16,7 +16,6 @@ phases:
       - export DOCKER_USERNAME=$(aws secretsmanager get-secret-value --secret-id dockerhub/credentials --query SecretString --output text | jq -r .username)
       - export DOCKER_PASSWORD=$(aws secretsmanager get-secret-value --secret-id dockerhub/credentials --query SecretString --output text | jq -r .password)
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      
 
   pre_build:
     commands:
@@ -26,7 +25,7 @@ phases:
 
   build:
     commands:
-      - echo Construcción completada exitosamente .
+      - echo Construcción completada exitosamente.
       - echo Construyendo imagen Docker...
       - docker build -t mi-microservicio -f blacklist_service/Dockerfile blacklist_service
 
@@ -37,11 +36,13 @@ phases:
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 416825837619.dkr.ecr.us-east-1.amazonaws.com
       - docker tag mi-microservicio:latest 416825837619.dkr.ecr.us-east-1.amazonaws.com/blacklist-service:latest
       - docker push 416825837619.dkr.ecr.us-east-1.amazonaws.com/blacklist-service:latest
-      - printf '[{"name":"blacklist","imageUri":"416825837619.dkr.ecr.us-east-1.amazonaws.com/blacklist-service:latest"}]' > imagedefinitions.json
 
+      # 🧩 Generar archivo image definition y taskdef corregido
+      - printf '[{"name":"blacklist","imageUri":"416825837619.dkr.ecr.us-east-1.amazonaws.com/blacklist-service:latest"}]' > imagedefinitions.json
+      - sed 's|<IMAGE1_NAME>|416825837619.dkr.ecr.us-east-1.amazonaws.com/blacklist-service:latest|' taskdef.json > final-taskdef.json
 
 artifacts:
   files:
     - appspec.json
-    - taskdef.json
+    - final-taskdef.json
     - imagedefinitions.json
