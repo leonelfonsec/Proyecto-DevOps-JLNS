@@ -37,7 +37,7 @@ phases:
       - docker tag mi-microservicio:latest 416825837619.dkr.ecr.us-east-1.amazonaws.com/blacklist-service:latest
       - docker push 416825837619.dkr.ecr.us-east-1.amazonaws.com/blacklist-service:latest
 
-      # 🧩 Generar archivo image definition y taskdef corregido
+      # 🧩 Generar archivo image definition y taskdef corregido 
       - printf '[{"name":"blacklist","imageUri":"416825837619.dkr.ecr.us-east-1.amazonaws.com/blacklist-service:latest"}]' > imagedefinitions.json
       - sed 's|<IMAGE1_NAME>|416825837619.dkr.ecr.us-east-1.amazonaws.com/blacklist-service:latest|' taskdef.json > final-taskdef.json
 
