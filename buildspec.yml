@@ -40,6 +40,7 @@ phases:
       - docker tag mi-microservicio:latest $REPOSITORY_URI:$IMAGE_TAG
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - printf '{"ImageURI":"%s"}' $REPOSITORY_URI:$IMAGE_TAG > imageDetail.json
+      - printf '[{"name":"blacklist","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 
 
 artifacts:
@@ -47,3 +48,4 @@ artifacts:
     - appspec.json
     - taskdef.json
     - imageDetail.json
+    - imagedefinitions.json
