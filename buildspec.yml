@@ -8,10 +8,6 @@ phases:
       - echo Instalando dependencias...
       - pip install -r blacklist_service/requirements.txt
       - pip install pytest faker
-      - chmod +x scripts/start.sh
-      - chmod +x scripts/stop.sh
-
-      # 🔐 Autenticación con Docker Hub
       - echo Autenticando en Docker Hub...
       - export DOCKER_USERNAME=$(aws secretsmanager get-secret-value --secret-id dockerhub/credentials --query SecretString --output text | jq -r .username)
       - export DOCKER_PASSWORD=$(aws secretsmanager get-secret-value --secret-id dockerhub/credentials --query SecretString --output text | jq -r .password)
@@ -28,8 +24,7 @@ phases:
       - echo Construcción completada exitosamente.
       - echo Construyendo imagen Docker...
       - docker build -t mi-microservicio -f blacklist_service/Dockerfile blacklist_service
-      - echo Mostrando appspec.json
-      - cat appspec.json
+
   post_build:
     commands:
       - echo Fase post_build finalizada.
@@ -41,10 +36,8 @@ phases:
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo "[{\"name\":\"blacklist\",\"imageUri\":\"$REPOSITORY_URI:$IMAGE_TAG\"}]" > imagedefinitions.json
 
-
-
 artifacts:
   files:
-    - appspec.json
-    - taskdef.json
-    - imagedefinitions.json
+    - '**/appspec.json'
+    - '**/taskdef.json'
+    - '**/imagedefinitions.json'
