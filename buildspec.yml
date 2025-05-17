@@ -37,7 +37,8 @@ phases:
       - echo "[{\"name\":\"blacklist\",\"imageUri\":\"$REPOSITORY_URI:$IMAGE_TAG\"}]" > imagedefinitions.json
 
 artifacts:
+  base-directory: .
   files:
-    - '**/appspec.json'
-    - '**/taskdef.json'
-    - '**/imagedefinitions.json'
+    - appspec.json
+    - taskdef.json
+    - imagedefinitions.json
