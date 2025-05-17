@@ -28,7 +28,8 @@ phases:
       - echo Construcción completada exitosamente.
       - echo Construyendo imagen Docker...
       - docker build -t mi-microservicio -f blacklist_service/Dockerfile blacklist_service
-
+      - echo Mostrando appspec.json
+      - cat appspec.json
   post_build:
     commands:
       - echo Fase post_build finalizada.
