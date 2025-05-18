@@ -1,21 +1,25 @@
 {
-  "family": "blacklist-task",
-  "networkMode": "awsvpc",
   "executionRoleArn": "arn:aws:iam::416825837619:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
-      "name": "blacklist",
-      "image": "<IMAGE>",
-      "essential": true,
       "portMappings": [
         {
-          "containerPort": 5000,
-          "protocol": "tcp"
+          "hostPort": 5000,
+          "protocol": "tcp",
+          "containerPort": 5000
         }
-      ]
+      ],
+      "image": "<IMAGE1_NAME>",
+      "essential": true,
+      "name": "blacklist"
+      
     }
   ],
-  "requiresCompatibilities": ["FARGATE"],
-  "cpu": "256",
-  "memory": "512"
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "networkMode": "awsvpc",
+  "cpu": "512",
+  "memory": "1024",
+  "family": "blacklist-task"
 }

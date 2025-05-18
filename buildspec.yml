@@ -34,11 +34,20 @@ phases:
       - export IMAGE_TAG=latest
       - docker tag mi-microservicio:latest $REPOSITORY_URI:$IMAGE_TAG
       - docker push $REPOSITORY_URI:$IMAGE_TAG
-      - echo "[{\"name\":\"blacklist\",\"imageUri\":\"$REPOSITORY_URI:$IMAGE_TAG\"}]" > imagedefinitions.json
+      #- echo "[{\"name\":\"blacklist\",\"imageUri\":\"$REPOSITORY_URI:$IMAGE_TAG\"}]" > imagedefinitions.json
+      - printf '[{"name":"blacklist","imageUri":"416825837619.dkr.ecr.us-east-1.amazonaws.com/blacklist-service:latest"}]' > imagedefinitions.json
+      - printf '{"ImageURI":"416825837619.dkr.ecr.us-east-1.amazonaws.com/blacklist-service:latest"}' > imageDetail.json
 
 artifacts:
-  base-directory: .
   files:
-    - appspec.json
-    - taskdef.json
+    - '**/*'
     - imagedefinitions.json
+    - imageDetail.json
+  secondary-artifacts:
+    DefinitionArtifact:
+      files:
+        - appspec.json
+        - taskdef.json
+    ImageArtifact:
+      files:
+        - imageDetail.json
