@@ -9,6 +9,24 @@
           "containerPort": 5000
         }
       ],
+      "environment": [
+        {
+          "name": "NEW_RELIC_LICENSE_KEY",
+          "value": "2d7a7bf2f08e300866f65b8bf5c7f016FFFFNRAL"
+        },
+        {
+          "name": "NEW_RELIC_APP_NAME",
+          "value": "MiAppFargate"
+        },
+        {
+          "name": "NEW_RELIC_LOG",
+          "value": "stdout"
+        },
+        {
+          "name": "NEW_RELIC_CONFIG_FILE",
+          "value": "/app/newrelic.ini"
+        }
+      ],
       "image": "<IMAGE>",
       "essential": true,
       "name": "blacklist"
