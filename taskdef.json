@@ -27,6 +27,14 @@
           "value": "/app/newrelic.ini"
         }
       ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/blacklist-service",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
       "image": "<IMAGE>",
       "essential": true,
       "name": "blacklist"
