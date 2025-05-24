@@ -5,6 +5,7 @@ WORKDIR /app
 # Instala dependencias necesarias (incluye netcat)
 RUN apt-get update && apt-get install -y netcat-openbsd && apt-get clean
 
+#COPY newrelic_local.ini /app/newrelic.ini
 COPY newrelic.ini /app/newrelic.ini
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
